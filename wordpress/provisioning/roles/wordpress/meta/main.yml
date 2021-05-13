@@ -1,0 +1,24 @@
+---
+galaxy_info:
+  author: Marcos Silvestrini
+  description: Role for Wordpress
+  company: Silvestrini
+  license: MIT
+  min_ansible_version: 2.7
+  platforms:
+    - name: Centos
+      versions:
+        - 7
+        - 8
+    - name: Oracle Linux
+      versions:
+        - 7
+        - 8
+  galaxy_tags:
+    - vagrant
+    - apache
+    - wordpress
+    - mysql
+    - development
+dependencies:
+  - webserver

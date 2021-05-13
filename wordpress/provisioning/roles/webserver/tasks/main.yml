@@ -1,0 +1,54 @@
+---
+- name: Import EPEL GPG key.
+  rpm_key:
+    key: '{{ epel_key }}'
+    state: present
+  become: yes
+
+- name: Import remi GPG key.
+  rpm_key:
+    key: '{{ remi_key }}'
+    state: present
+  become: yes
+
+- name: Install Epel and Rmi
+  dnf:
+    name: '{{ item }}'
+    state: installed
+  loop:
+    - '{{ repos }}'
+  become: yes
+
+- name: Set Rmi Version
+  shell: dnf module enable php:remi-7.4 -y
+  become: yes
+
+- name: Install Packages
+  dnf:
+    name: '{{ item }}'
+    state: latest
+  loop:
+    - '{{ packages }}'
+  become: yes
+
+- name: Change file ownership, group and permissions vagrant for php
+  file:
+    path: '{{ http_path }}'
+    owner: vagrant
+    group: vagrant
+    mode: '0775'
+  become: yes
+
+- name: Change file ownership, group and permissions vagrant for Apache
+  file:
+    path: '{{ http_conf }}'
+    owner: vagrant
+    group: vagrant
+  become: yes
+
+- name: Change file permissions for wordpress
+  file:
+    path: '{{ wp_path }}'
+    owner: apache
+    recurse: yes
+  become: yes

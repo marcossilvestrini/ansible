@@ -1,0 +1,38 @@
+---
+- name: Download wordpress
+  get_url:
+    url: https://wordpress.org/latest.tar.gz
+    dest: /tmp/wordpress.tar.gz
+
+- name: Extract wordpress files
+  unarchive:
+    src: /tmp/wordpress.tar.gz
+    dest: '{{ http_path }}'
+    remote_src: yes
+  become: yes
+
+- name: Copy File Wordpress Config
+  copy:
+    src: '{{ wp_path }}/wp-config-sample.php'
+    dest: '{{ wp_path }}/wp-config.php'
+    remote_src: yes
+  become: yes
+
+- name: Configure the wp-config with input database
+  replace:
+    path: '{{ wp_path }}/wp-config.php'
+    regexp: '{{ item.regex }}'
+    replace: '{{ item.value }}'
+  with_items:
+    - { regex: 'localhost', value: '{{ wp_db_ip }}' }
+    - { regex: 'database_name_here', value: '{{wp_db_name}}' }
+    - { regex: 'username_here', value: '{{ wp_db_username }}' }
+    - { regex: 'password_here', value: '{{ wp_db_password }}' }
+  become: yes
+
+- name: Configure Apache for serve Wordpress
+  template:
+    src: 'templates/httpd.conf.j2'
+    dest: '{{ http_conf }}'
+  become: yes
+  notify: restart apache
