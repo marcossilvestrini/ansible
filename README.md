@@ -22,9 +22,9 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 
 ## References
 
-[Virtualbox Docs](https://www.virtualbox.org/wiki/Documentation)
-[Vagrant Docs](https://www.vagrantup.com/docs/index.html)
-[Ansible Main Page](https://docs.ansible.com/)
+[Virtualbox Docs](https://www.virtualbox.org/wiki/Documentation)\
+[Vagrant Docs](https://www.vagrantup.com/docs/index.html)\
+[Ansible Main Page](https://docs.ansible.com/)\
 [Ansible Core Docs](https://docs.ansible.com/ansible-core/devel/index.html)
 
 ## Install Ansible in Rhel Centos 7\8
