@@ -1,4 +1,5 @@
 # Leaning Ansible
+![Ansible](https://user-images.githubusercontent.com/62715900/118187521-6a8efa00-b415-11eb-9479-6d73e36886a3.png)
 
 ## Getting Started
 
