@@ -31,6 +31,27 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 
 ## Install Ansible in Rhel Centos 7\8
 
+`sudo yum install epel-release`
+`sudo yum install ansible`
+
+## Ad-Hoc Commands
+
+### Collect and Display infos of server
+
+`ansible localhost -m setup`
+
+### Check all  my inventory  hosts are ok
+
+`ansible all -m ping`
+
+### Check uptime
+
+`ansible protheus -m command -a "uptime"`
+
+## Check playbook syntax
+
+`ansible-playbook playbook.yml --syntax-check`
+
 ## Roles
 
 ### Wordpress
