@@ -34,15 +34,56 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 `sudo yum install epel-release`
 `sudo yum install ansible`
 
+## Setup Client server
+
+```sh
+adduser ansible
+passwd ansible
+ssh-keygen
+vi ~/.ssh/authorized_keys
+```
+
+Add your id_rsa.pub in authorized_keys for ansible ssh conection
+
+## Setup Inventory file
+
+```sh
+[all]
+192.168.0.135
+192.168.0.136
+
+[web]
+192.168.0.135
+
+[web:vars]
+ansible_user=ansible
+ansible_ssh_private_key_file=~/.ssh/id_rsa
+ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+[db]
+192.168.0.136
+
+[db:vars]
+ansible_user=ansible
+ansible_ssh_private_key_file=~/.ssh/id_rsa
+ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+```
+
 ## Ad-Hoc Commands
 
 ### Collect and Display infos of server
 
 `ansible localhost -m setup`
 
-### Check all  my inventory  hosts are ok
+### Check inventory  hosts
 
-`ansible all -m ping`
+```sh
+ansible -i provisioning/hosts all -m ping
+ansible -i provisioning/hosts web -m ping
+
+```
 
 ### Check uptime
 
