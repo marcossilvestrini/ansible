@@ -13,3 +13,17 @@
     owner: vagrant
     group: vagrant
   become: yes
+
+- name: Change file ownership, group and permissions vagrant for pages
+  file:
+    path: '{{ http_path }}'
+    owner: vagrant
+    group: vagrant
+  become: yes
+
+- name: Set index page in Apache
+  template:
+    src: 'templates/index.j2'
+    dest: '{{ index }}'
+  become: yes
+  notify: restart apache
